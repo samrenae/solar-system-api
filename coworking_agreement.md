@@ -30,3 +30,6 @@ Jessica: Mindful of time management
 ## Signatures
 Samantha Hunt _______________
 Date: 10/19/2022
+
+Jessica Edith Ambriz-Madrigal
+Date: 10/19/2022
