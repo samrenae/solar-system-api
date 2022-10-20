@@ -16,7 +16,7 @@ planets = [
     Planet(6, "Saturn", "Sixth planet from the sun, in the Milky Way Galaxy. Saturn is a gas giant made of mostly hydrogen and helium, and has dozens of moons and the most complex rings.", "jovian"),
     Planet(7, "Uranus", "Seventh planet from the sun, in the Milky Way Galaxy. Uranus is an ice giant and is made of water, methan, hydrogen, and helium, and is blue in color.", "jovian"),
     Planet(8, "Neptune", "Eighth planet from the sun, in the Milky Way Galaxy. Neptune is an ice giant and is made of water, ammonia, and methane and has a thick, windy atmosphere.", "jovian"),
-    Planet(9, "Pluto", "Ninth planet from the sun, in the Milky Way Galaxy. Pluto is a dwarf planet and is about half the width of the United States of America. It is a real planet.", "jovian")
+    Planet(9, "Pluto", "Ninth planet from the sun, in the Milky Way Galaxy. Pluto is a dwarf planet and is about half the width of the United States of America. It is a real planet.", "dwarf")
 ]
 
 planet_bp = Blueprint("planet_bp",__name__, url_prefix="/planet")
