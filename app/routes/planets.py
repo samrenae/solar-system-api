@@ -1,5 +1,5 @@
-
 from flask import Blueprint,jsonify
+
 class Planet():
     def __init__(self, id, name, description, type):
         self. id = id
@@ -20,8 +20,8 @@ planets = [
 ]
 
 planet_bp = Blueprint("planet_bp",__name__, url_prefix="/planet")
-@planet_bp.route("", methods=["GET"])
 
+@planet_bp.route("", methods=["GET"])
 def get_all_planets():
     response = []
     for planet in planets:
@@ -33,3 +33,23 @@ def get_all_planets():
         }
         response.append(planet_dict)
     return jsonify(response), 200
+
+@planet_bp.route("/<planet_id>", methods=["GET"])
+def get_one_planet(planet_id):
+    try:
+        planet_id = int(planet_id)
+    except ValueError:
+        response_str = f"Invalid planet_id: `{planet_id}`. ID must be an integer"
+        return jsonify({"message": response_str}), 400
+    
+    for planet in planets:
+        if planet.id == planet_id:
+            planet_dict = {
+                "id" : planet.id,
+                "name" : planet.name,
+                "planet description" : planet.description,
+                "type" : planet.type
+            }
+            return jsonify(planet_dict), 200
+    response_message = f"Could not find planet with ID {planet_id}"
+    return jsonify({"message": response_message}), 404
