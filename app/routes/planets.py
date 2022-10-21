@@ -1,4 +1,16 @@
-from flask import Blueprint,jsonify
+from http.cookies import BaseCookie
+from flask import Blueprint,jsonify, abort, make_response
+
+def validate_planet(planet_id):
+    try:
+        planet_id = int(planet_id)
+    except ValueError:
+        abort(make_response({"message": f"planet {planet_id} invalid"}, 400))
+    
+    for planet in planets:
+        if planet.id == planet_id:
+            return planet
+    abort(make_response({"message": f"planet {planet_id} not found."}, 404))
 
 class Planet():
     def __init__(self, id, name, description, type):
@@ -36,20 +48,11 @@ def get_all_planets():
 
 @planet_bp.route("/<planet_id>", methods=["GET"])
 def get_one_planet(planet_id):
-    try:
-        planet_id = int(planet_id)
-    except ValueError:
-        response_str = f"Invalid planet_id: `{planet_id}`. ID must be an integer"
-        return jsonify({"message": response_str}), 400
+    planet = validate_planet(planet_id)
     
-    for planet in planets:
-        if planet.id == planet_id:
-            planet_dict = {
-                "id" : planet.id,
-                "name" : planet.name,
-                "planet description" : planet.description,
-                "type" : planet.type
-            }
-            return jsonify(planet_dict), 200
-    response_message = f"Could not find planet with ID {planet_id}"
-    return jsonify({"message": response_message}), 404
+    return jsonify({
+        "id" : planet.id,
+        "name" : planet.name,
+        "planet description" : planet.description,
+        "type" : planet.type
+    })
