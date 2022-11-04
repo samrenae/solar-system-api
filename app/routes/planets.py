@@ -50,7 +50,7 @@ def add_planet():
 @planet_bp.route("", methods=["GET"])
 def get_all_planets():
     response = []
-    
+
     planets_query = request.args.get("name")
     if planets_query is not None:
         planets = Planet.query.filter_by(name=planets_query)
@@ -70,34 +70,42 @@ def get_all_planets():
 @planet_bp.route("/<planet_id>", methods=["GET"])
 def get_one_planet(planet_id):
     chosen_planet = get_one_planet_or_abort(planet_id)
+
     planet_dict = {
             "id" : chosen_planet.id,
             "name" : chosen_planet.name,
             "planet description" : chosen_planet.description,
             "type" : chosen_planet.type
         }
+        
     return jsonify(planet_dict), 200
 
 @planet_bp.route("/<planet_id>", methods=["PUT"])
 def update_one_planet(planet_id):
     chosen_planet = get_one_planet_or_abort(planet_id)
     request_body = request.get_json()
+
     if "name" not in request_body or \
         "description" not in request_body or \
         "type" not in request_body:
             return jsonify({"message": "request must include name, description, type "}), 400
+
     chosen_planet.name = request_body["name"]
     chosen_planet.description = request_body["description"]
     chosen_planet.type = request_body["type"]
 
     db.session.commit()
+
     return jsonify({"message": f"successfully replaced planet with id{planet_id}"}), 200
 
 
 @planet_bp.route("/<planet_id>", methods=["DELETE"])
 def delete_one_planet(planet_id):
     chosen_planet = get_one_planet_or_abort(planet_id)
+
     db.session.delete(chosen_planet)
+
     db.session.commit()
+
     return jsonify({"message": f"successfully deleted planet with id{planet_id}"}), 200
 
