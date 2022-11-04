@@ -26,7 +26,7 @@ def get_one_planet_or_abort(planet_id):
 
     if not matching_planet: 
         response_str = f"Planet with id {planet_id} was not found in the database"
-        abort(make_response(jsonify({'message':response_str}), 400))
+        abort(make_response(jsonify({'message':response_str}), 404))
     return matching_planet
 
 
