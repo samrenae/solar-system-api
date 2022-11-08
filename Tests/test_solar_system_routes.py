@@ -21,7 +21,7 @@ def test_get_one_planet_with_populated_db_returns_planet_json(client, two_planet
     assert response_body == { 
         "id": 1,
         "name": "Mercury", 
-        "planet description": "Closest planet to sun, in the Milky Way Galaxy. Mercury has no moons and has a thin atmosphere.", 
+        "description": "Closest planet to sun, in the Milky Way Galaxy. Mercury has no moons and has a thin atmosphere.", 
         "type": "terrestrial"
         }
 
